@@ -31,6 +31,7 @@ import { TopMenuDropdownDirective } from './directives/topmenu-dropdown.directiv
 import { TopMenuAnchorToggleDirective } from './directives/topmenu-anchor-toggle.directive';
 import { BusyDirective } from './directives/busy.directive';
 import { EqualValidator } from './directives/equal-validator.directive';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
 @NgModule({
     imports: [
@@ -38,7 +39,8 @@ import { EqualValidator } from './directives/equal-validator.directive';
         RouterModule,
         AutocompleteModule,
         NgxPaginationModule,
-        OverlayModule
+        OverlayModule,
+        PerfectScrollbarModule
     ],
     declarations: [
         AbpPaginationControlsComponent,

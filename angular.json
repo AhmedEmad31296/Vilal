@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "43e5234d-e1c1-4825-8a78-46cc0c9315d0"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -32,7 +35,10 @@
             ],
             "styles": [
               "node_modules/sweetalert2/dist/sweetalert2.min.css",
+              "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
               "node_modules/prismjs/plugins/toolbar/prism-toolbar.css",
+              "node_modules/@swimlane/ngx-datatable/index.css",
+              "node_modules/@swimlane/ngx-datatable/assets/icons.css",
               "src/assets/css/wizard.css",
               "src/assets/css/quill.snow.css",
               "src/assets/css/quill.bubble.css",
@@ -40,8 +46,6 @@
               "src/assets/css/animate.min.css",
               "node_modules/angular-calendar/scss/angular-calendar.scss",
               "node_modules/ngx-toastr/toastr.css",
-              "node_modules/@swimlane/ngx-datatable/index.css",
-              "node_modules/@swimlane/ngx-datatable/assets/icons.css",
               "src/assets/css/demo.css",
               "src/assets/sass/core.scss"
             ],
