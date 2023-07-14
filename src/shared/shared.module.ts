@@ -4,6 +4,9 @@ import { RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AutocompleteModule } from './autocomplete/autocomplete.module'
 import { OverlayModule } from '@angular/cdk/overlay';
+import { EqualValidator } from "./directives/equal-validator.directive";
+import { PerfectScrollbarModule } from "ngx-perfect-scrollbar";
+import { ToastrModule } from "ngx-toastr";
 
 import { AppSessionService } from './session/app-session.service';
 import { AppUrlService } from './nav/app-url.service';
@@ -30,62 +33,63 @@ import { TopMenuLinkDirective } from './directives/topmenu-link.directive';
 import { TopMenuDropdownDirective } from './directives/topmenu-dropdown.directive';
 import { TopMenuAnchorToggleDirective } from './directives/topmenu-anchor-toggle.directive';
 import { BusyDirective } from './directives/busy.directive';
-import { EqualValidator } from './directives/equal-validator.directive';
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule,
-        AutocompleteModule,
-        NgxPaginationModule,
-        OverlayModule,
-        PerfectScrollbarModule
-    ],
-    declarations: [
-        AbpPaginationControlsComponent,
-        AbpValidationSummaryComponent,
-        AbpModalHeaderComponent,
-        AbpModalFooterComponent,
-        LocalizePipe,
-        BusyDirective,
-        ToggleFullscreenDirective,
-        SidebarLinkDirective,
-        SidebarDropdownDirective,
-        SidebarAnchorToggleDirective,
-        SidebarDirective,
-        TopMenuLinkDirective,
-        TopMenuDropdownDirective,
-        TopMenuAnchorToggleDirective,
-        TopMenuDirective,
-        EqualValidator
-    ],
-    exports: [
-        AbpPaginationControlsComponent,
-        AbpValidationSummaryComponent,
-        AbpModalHeaderComponent,
-        AbpModalFooterComponent,
-        LocalizePipe,
-        BusyDirective,
-        EqualValidator,
-        ToggleFullscreenDirective,
-        SidebarDirective,
-        TopMenuDirective,
-        ToggleFullscreenDirective,
-        AutocompleteComponent
-    ]
+  imports: [
+    CommonModule,
+    RouterModule,
+    AutocompleteModule,
+    NgxPaginationModule,
+    OverlayModule,
+    PerfectScrollbarModule,
+    ToastrModule.forRoot(),
+  ],
+  declarations: [
+    AbpPaginationControlsComponent,
+    AbpValidationSummaryComponent,
+    AbpModalHeaderComponent,
+    AbpModalFooterComponent,
+    LocalizePipe,
+    BusyDirective,
+    ToggleFullscreenDirective,
+    SidebarLinkDirective,
+    SidebarDropdownDirective,
+    SidebarAnchorToggleDirective,
+    SidebarDirective,
+    TopMenuLinkDirective,
+    TopMenuDropdownDirective,
+    TopMenuAnchorToggleDirective,
+    TopMenuDirective,
+    EqualValidator,
+  ],
+  exports: [
+    CommonModule,
+    AbpPaginationControlsComponent,
+    AbpValidationSummaryComponent,
+    AbpModalHeaderComponent,
+    AbpModalFooterComponent,
+    LocalizePipe,
+    BusyDirective,
+    EqualValidator,
+    ToggleFullscreenDirective,
+    SidebarDirective,
+    TopMenuDirective,
+    ToggleFullscreenDirective,
+    AutocompleteComponent,
+  ],
 })
 export class SharedModule {
-    static forRoot(): ModuleWithProviders<SharedModule> {
-        return {
-            ngModule: SharedModule,
-            providers: [
-                AppSessionService,
-                AppUrlService,
-                AppAuthService,
-                AppRouteGuard,
-                LayoutStoreService,
-            ]
-        };
-    }
+  static forRoot(): ModuleWithProviders<SharedModule> {
+    return {
+      ngModule: SharedModule,
+      providers: [
+        AppSessionService,
+        AppUrlService,
+        AppAuthService,
+        AppRouteGuard,
+        LayoutStoreService,
+      ],
+    };
+  }
 }

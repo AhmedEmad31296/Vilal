@@ -1,12 +1,18 @@
-import { Component, Injector, ChangeDetectionStrategy } from '@angular/core';
-import { AppComponentBase } from '@shared/app-component-base';
+import { Component } from '@angular/core';
+
+export interface Chart {
+  options?: any;
+  responsiveOptions?: any;
+  // plugins?: any;
+}
 
 @Component({
+  selector: 'app-home',
   templateUrl: './home.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  //styleUrls: ['./home.component.scss']
 })
-export class HomeComponent extends AppComponentBase {
-  constructor(injector: Injector) {
-    super(injector);
-  }
+
+export class HomeComponent {
+
+
 }

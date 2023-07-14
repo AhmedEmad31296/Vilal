@@ -1,3 +1,4 @@
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { WINDOW_PROVIDERS } from '@shared/services/window.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -36,6 +37,8 @@ import {
   PERFECT_SCROLLBAR_CONFIG,
   PerfectScrollbarConfigInterface
 } from 'ngx-perfect-scrollbar';
+import { ServicesComponent } from './services/services.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelPropagation: false
@@ -46,6 +49,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AppComponent,
     HomeComponent,
     AboutComponent,
+    AccountSettingsComponent,
     // users
     UsersComponent,
     CreateUserDialogComponent,
@@ -60,6 +64,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CustomizerComponent,
     AutocompleteDirective,
     NotificationSidebarComponent,
+    ServicesComponent,
+    ContactUsComponent,
   ],
   imports: [
     CommonModule,
