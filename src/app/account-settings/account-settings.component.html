@@ -226,7 +226,8 @@
                         <div
                            class="col-12 d-flex flex-sm-row flex-column justify-content-end"
                            >
-                           <button type="submit" class="btn btn-primary mr-sm-2 mb-1">
+                           <button type="submit" class="btn btn-primary mr-sm-2 mb-1"
+                           [disabled]="saving">
                            {{ "Save" | localize }}
                            </button>
                            <button type="reset" class="btn btn-secondary mb-1">
@@ -348,7 +349,8 @@
                         </div>
                      </div>
                      <div class="d-flex flex-sm-row flex-column justify-content-end">
-                        <button type="submit" class="btn btn-primary mr-sm-2 mb-1">
+                        <button type="submit" class="btn btn-primary mr-sm-2 mb-1"
+                        [disabled]="saving">
                         {{ "Save" | localize }}
                         </button>
                         <button type="reset" class="btn btn-secondary mb-1">
@@ -435,7 +437,8 @@
                         <div
                            class="col-12 d-flex flex-sm-row flex-column justify-content-end"
                            >
-                           <button type="submit" class="btn btn-primary mr-sm-2 mb-1">
+                           <button type="submit" class="btn btn-primary mr-sm-2 mb-1"
+                           [disabled]="saving">
                            {{ "Save" | localize }}
                            </button>
                            <button type="button" class="btn btn-secondary mb-1">

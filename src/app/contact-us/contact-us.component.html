@@ -1,1 +1,102 @@
-<p>contact-us works!</p>
+<!-- services.component.html -->
+<section id="ng-tables">
+  <div class="row text-left">
+    <div class="col-12">
+      <div class="content-header">{{ "ContactUS.Messages" | localize }}</div>
+    </div>
+  </div>
+  <div class="row text-left">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <form>
+              <div class="d-flex justify-content-between p-2">
+                <div class="form-group form-inline"> {{"Datatable.FullTextSearch"|localize}}
+                  <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="search" (input)="searchTable()" />
+                  <span class="ml-3" *ngIf="loading">{{"Datatable.Loading"|localize}}</span>
+                </div>
+                <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="pageSize" (ngModelChange)="onPageSizeChange($event)">
+                  <option [ngValue]="4">4 {{"Datatable.ItemsPerPage"|localize}}</option>
+                  <option [ngValue]="6">6 {{"Datatable.ItemsPerPage"|localize}}</option>
+                  <option [ngValue]="8">8 {{"Datatable.ItemsPerPage"|localize}}</option>
+                  <option [ngValue]="10">10 {{"Datatable.ItemsPerPage"|localize}}</option>
+                </select>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <!-- <th scope="col">#</th> -->
+                      <th scope="col" sortable="name" (sort)="onSort($event)">
+                        {{ "Name" | localize }}
+                      </th>
+                      <th scope="col" sortable="email" (sort)="onSort($event)">
+                        {{ "EmailAddress" | localize }}
+                      </th>
+                      <th scope="col">
+                        {{ "ContactUS.Message" | localize }}
+                      </th>
+                      <th scope="col">
+                        {{ "ContactUS.IsRead" | localize }}
+                      </th>
+                      <th scope="col">
+                        {{ "Datatable.Actions" | localize }}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let mes of data">
+                      <th scope="row" hidden>{{ mes.id }}</th>
+                      <td>
+                        <ngb-highlight [result]="mes.name" [term]="search"></ngb-highlight>
+                      </td>
+                      <td>
+                        <ngb-highlight [result]="mes.email" [term]="search"></ngb-highlight>
+                      </td>
+                      <td>
+                        <p>
+                          {{ mes.message | slice:0:12 }}{{mes.message > 12 ? '...' : '' }}
+                        </p>
+                      </td>
+                      <td>
+                        <span class="badge badge-pill bg-light-success cursor-pointer" *ngIf="mes.isRead">
+                          {{ "Yes" | localize }}
+                        </span>
+                        <span class="badge badge-pill bg-light-danger cursor-pointer" *ngIf="!mes.isRead">
+                          {{ "No" | localize }}
+                        </span>
+                      </td>
+                      <td>
+                        <a href="javascript:;" class="primary p-0" (click)="openModal(content,mes.id)">
+                          <i class="ft-eye font-medium-3 mr-2"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="d-flex justify-content-center p-2">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="currentPage" [pageSize]="pageSize" (pageChange)="onPageChange($event)"></ngb-pagination>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{ "ContactUS.Message" | localize }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>{{_message}}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{"Cancel"|localize}}</button>
+  </div>
+</ng-template>

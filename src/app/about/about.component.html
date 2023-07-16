@@ -1,9 +1,8 @@
 ﻿<div class="row">
   <div class="col">
-    <div class="content-header">{{"About"|localize}}</div>
+    <div class="content-header">{{ "About" | localize }}</div>
   </div>
 </div>
-
 <!-- Form Action Form Layout starts -->
 <section id="action-form-layout">
   <div class="row match-height">
@@ -11,37 +10,61 @@
       <div class="card">
         <div class="card-content">
           <div class="card-body">
-            <form>
-               <div class="form-row">
+            <form (ngSubmit)="update()">
+              <div class="form-row">
                 <div class="col-md-6 col-12">
                   <div class="form-group position-relative">
-                    <label for="titleAr">{{"ArabicTitle"|localize}}</label>
-                    <input type="text" id="titleAr" class="form-control" name="titleAr" [(ngModel)]="about.titleAr">
+                    <label for="titleAr">{{ "ArabicTitle" | localize }}</label>
+                    <input type="text" id="titleAr" class="form-control" name="titleAr" [(ngModel)]="about.titleAr" />
                   </div>
                 </div>
                 <div class="col-md-6 col-12">
                   <div class="form-group position-relative">
-                    <label for="titleEn">{{"EnglishTitle"|localize}}</label>
-                    <input type="text" id="titleEn" class="form-control" name="titleEn" [(ngModel)]="about.titleEn">
+                    <label for="titleEn">{{ "EnglishTitle" | localize }}</label>
+                    <input type="text" id="titleEn" class="form-control" name="titleEn" [(ngModel)]="about.titleEn" />
                   </div>
                 </div>
               </div>
-               <div class="form-row">
+              <div class="form-row">
                 <div class="col-md-6 col-12">
                   <div class="form-group position-relative">
-                    <label for="descriptionAr">{{"ArabicDescription"|localize}}</label>
+                    <label for="descriptionAr">{{ "ArabicDescription" | localize
+                    }}</label>
                     <textarea id="descriptionAr" rows="4" class="form-control" name="descriptionAr" [(ngModel)]="about.descriptionAr"></textarea>
                   </div>
                 </div>
                 <div class="col-md-6 col-12">
                   <div class="form-group position-relative">
-                    <label for="">{{"EnglishDescription"|localize}}</label>
+                    <label for="">{{ "EnglishDescription" | localize }}</label>
                     <textarea id="descriptionEn" rows="4" class="form-control" name="descriptionEn" [(ngModel)]="about.descriptionEn"></textarea>
                   </div>
                 </div>
               </div>
-              <button type="button" class="btn btn-primary mr-2" (click)="update()"><i class="ft-check-square mr-1"></i>{{"Save"|localize}}</button>
-              <button type="button" class="btn btn-secondary"><i class="ft-x mr-1"></i>{{"Cancel"|localize}}</button>
+              <div class="form-row">
+                <div class="col-md-6 col-12"></div>
+                <div class="col-md-6 col-12">
+                  <div class="checkbox">
+                    <input type="checkbox" id="isActiveCheckbox" name="isActive" [(ngModel)]="about.isActive" />
+                    <label for="isActiveCheckbox">
+                      <span>{{ "IsActive" | localize }}</span>
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <input type="checkbox" id="isHomeCheckbox" name="isHome" [(ngModel)]="about.isHome" />
+                    <label for="isHomeCheckbox">
+                      <span>{{ "IsHome" | localize }}</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center p-2">
+                <button type="submit" class="btn btn-primary mr-2" [disabled]="saving">
+                  <i class="ft-check-square mr-1"></i>{{ "Save" | localize }}
+                </button>
+                <button type="button" class="btn btn-secondary">
+                  <i class="ft-x mr-1"></i>{{ "Cancel" | localize }}
+                </button>
+              </div>
             </form>
           </div>
         </div>
@@ -53,19 +76,42 @@
 <!-- default swiper start -->
 <section id="swiper-default">
   <div class="row">
-      <div class="col-12">
-          <div class="card">
-              <div class="card-content">
-                  <div class="card-body">
-                      <div class="swiper-default swiper-container">
-                          <div class="swiper-wrapper">
-                              <div class="swiper-slide"><img class="img-fluid" src="assets/img/banner/banner-1.jpg" alt="banner"></div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title pb-2">{{ "UploadPhoto" | localize }}</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body pt-0">
+            <label class="custom-file">
+              <input type="file" class="custom-file-input" id="fileUpload" (change)="onFileSelect($event.target.files)" />
+              <label class="custom-file-label" for="fileUpload">
+                {{ selectedFileName || "ChooseFile" | localize }}
+              </label>
+            </label>
+            <div *ngIf="isFileReady">
+              <button type="button" [disabled]="saving" class="btn btn-success bg-light-success m-1" (click)="upload()">
+                <i class="ft-upload"></i>
+                {{ "Upload" | localize }}
+              </button>
+              <button type="button" class="btn btn-success bg-light-danger m-1" (click)="remove()">
+                <i class="ft-trash-2"></i>
+                {{ "Remove" | localize }}
+              </button>
+            </div>
           </div>
+          <div class="card-body">
+            <div class="swiper-default swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <img class="img-fluid" [src]="about.imageUrl" alt="banner" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
 </section>
 <!-- default swiper ends -->

@@ -11,7 +11,6 @@ export class FooterComponent extends AppComponentBase {
 
   constructor(injector: Injector) {
     super(injector);
-
     this.currentYear = new Date().getFullYear();
   }
 }

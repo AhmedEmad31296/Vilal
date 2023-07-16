@@ -1,248 +1,274 @@
-<!--Gallery Hover Effect Starts-->
-<div class="row">
+<!-- services.component.html -->
+<section id="ng-tables">
+  <div class="row text-left">
     <div class="col-12">
-      <div class="content-header">Gallery with Hover Effects</div>
-      <p class="content-sub-header mb-1">Image gallery grid with some subtle hover effect. Try to hover these demo images to see different hover effects.</p>
+      <div class="content-header">{{ "Buildings.OurServices" | localize }}</div>
     </div>
   </div>
-  <section id="gallery-hover-effects">
-    <div class="row">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-content">
-            <div class="card-body" itemscope itemtype="http://schema.org/ImageGallery">
-
-              <div class="grid-hover">
-                <div class="row">
-                  <div class="col-md-6 col-12">
-                    <h5 class="text-bold-400 text-uppercase">Lily</h5>
-                    <figure class="effect-lily">
-                      <img src="assets/img/gallery/19.jpg" alt="img">
-                      <figcaption>
-                        <div>
-                          <h2>Nice
-                            <span>Lily</span>
-                          </h2>
-                          <p>Lily likes to play with crayons and pencils</p>
-                        </div>
-                      </figcaption>
-                    </figure>
-                  </div>
-                  <div class="col-md-6 col-12">
-                    <h5 class="text-bold-400 text-uppercase">Sadie</h5>
-                    <figure class="effect-sadie">
-                      <img src="assets/img/gallery/2.jpg" alt="img">
-                      <figcaption>
-                        <h2>Holy
-                          <span>Sadie</span>
-                        </h2>
-                        <p>Sadie never took her eyes off me.
-                          <br>She had a dark soul.</p>
-                      </figcaption>
-                    </figure>
+  <div class="row text-left">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <form>
+              <div class="d-flex">
+                <div class="mr-auto p-2">
+                  <div class="form-group form-inline">
+                    {{ "Datatable.FullTextSearch" | localize }}
+                    <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="search" (input)="searchTable()" />
+                    <span class="ml-3" *ngIf="loading">
+                      {{ "Datatable.Loading" | localize }}
+                    </span>
                   </div>
                 </div>
-              </div>
-
-              <div class="grid-hover">
-                <div class="row">
-                  <div class="col-md-6 col-12">
-                    <h5 class="text-bold-400 text-uppercase">Honey</h5>
-                    <figure class="effect-honey">
-                      <img src="assets/img/gallery/3.jpg" alt="img">
-                      <figcaption>
-                        <h2>Dreamy
-                          <span>Honey</span> <i>Now</i></h2>
-                      </figcaption>
-                    </figure>
-                  </div>
-                  <div class="col-md-6 col-12">
-                    <h5 class="text-bold-400 text-uppercase">Layla</h5>
-                    <figure class="effect-layla">
-                      <img src="assets/img/gallery/17.jpg" alt="img">
-                      <figcaption>
-                        <h2>Crazy
-                          <span>Layla</span>
-                        </h2>
-                        <p>When Layla appears, she brings an eternal summer along.</p>
-                      </figcaption>
-                    </figure>
-                  </div>
+                <div class="p-2">
+                  <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="pageSize" (ngModelChange)="onPageSizeChange($event)">
+                    <option [ngValue]="4"> 4 {{ "Datatable.ItemsPerPage" | localize }}
+                    </option>
+                    <option [ngValue]="6"> 6 {{ "Datatable.ItemsPerPage" | localize }}
+                    </option>
+                    <option [ngValue]="8"> 8 {{ "Datatable.ItemsPerPage" | localize }}
+                    </option>
+                    <option [ngValue]="10"> 10 {{ "Datatable.ItemsPerPage" | localize }}
+                    </option>
+                  </select>
+                </div>
+                <div class="p-2">
+                  <button type="button" class="btn btn-primary mr-2" (click)="openModal(content, 0)">
+                    <span class="d-flex align-items-center">
+                      <i class="ft-plus mr-1"></i>
+                      <span>{{ "Create" | localize }}</span>
+                    </span>
+                  </button>
                 </div>
               </div>
-
-              <div class="grid-hover">
-                <div class="row">
-                  <div class="col-md-6 col-12">
-                    <h5 class="text-bold-400 text-uppercase">Zoe</h5>
-                    <figure class="effect-zoe">
-                      <img src="assets/img/gallery/22.jpg" alt="img">
-                      <figcaption>
-                        <h2>Creative
-                          <span>Zoe</span>
-                        </h2>
-                        <p class="icon-links">
-                          <a href="javascript:;" class="mr-1"><i class="ft-heart"></i></a>
-                          <a href="javascript:;" class="mr-1"><i class="ft-eye"></i></a>
-                          <a href="javascript:;" class="mr-1"><i class="ft-edit"></i></a>
-                        </p>
-                        <p class="description">Zoe never had the patience of her sisters. She deliberately punched the bear in his face.</p>
-                      </figcaption>
-                    </figure>
-                  </div>
-                  <div class="col-md-6 col-12">
-                    <h5 class="text-bold-400 text-uppercase">Oscar</h5>
-                    <figure class="effect-oscar">
-                      <img src="assets/img/gallery/7.jpg" alt="img">
-                      <figcaption>
-                        <h2>Warm
-                          <span>Oscar</span>
-                        </h2>
-                        <p>Oscar is a decent man. He used to clean porches with pleasure.</p>
-                      </figcaption>
-                    </figure>
-                  </div>
-                </div>
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col" sortable="titleEn" (sort)="onSort($event)">
+                        {{ "EnglishTitle" | localize }}
+                      </th>
+                      <th scope="col" sortable="titleAr" (sort)="onSort($event)">
+                        {{ "ArabicTitle" | localize }}
+                      </th>
+                      <th scope="col">
+                        {{ "Icon" | localize }}
+                      </th>
+                      <th scope="col">
+                        {{ "IsHome" | localize }}
+                      </th>
+                      <th scope="col">
+                        {{ "IsActive" | localize }}
+                      </th>
+                      <th scope="col">
+                        {{ "Datatable.Actions" | localize }}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let building of data">
+                      <th scope="row" hidden>{{ building.id }}</th>
+                      <td>
+                        <ngb-highlight [result]="building.titleEn" [term]="search"></ngb-highlight>
+                      </td>
+                      <td>
+                        <ngb-highlight [result]="building.titleAr" [term]="search"></ngb-highlight>
+                      </td>
+                      <td>
+                        <img [src]="building.iconUrl" class="height-50" alt="Icon" />
+                      </td>
+                      <td>
+                        <span class="badge badge-pill bg-light-success cursor-pointer" *ngIf="building.isHome">
+                          {{ "Yes" | localize }}
+                        </span>
+                        <span class="badge badge-pill bg-light-danger cursor-pointer" *ngIf="!building.isHome">
+                          {{ "No" | localize }}
+                        </span>
+                      </td>
+                      <td>
+                        <span class="badge badge-pill bg-light-success cursor-pointer" *ngIf="building.isActive">
+                          {{ "Yes" | localize }}
+                        </span>
+                        <span class="badge badge-pill bg-light-danger cursor-pointer" *ngIf="!building.isActive">
+                          {{ "No" | localize }}
+                        </span>
+                      </td>
+                      <td class="text-truncate">
+                        <a href="javascript:;" class="primary p-0" (click)="openModal(content, building.id)">
+                          <i class="ft-edit font-medium-3 mr-2"></i>
+                        </a>
+                        <a href="javascript:;" class="danger p-0" (click)="deleteItem(building.id)">
+                          <i class="ft-trash-2 font-medium-3"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-
-              <div class="grid-hover">
-                <div class="row">
-                  <div class="col-md-6 col-12">
-                    <h5 class="text-bold-400 text-uppercase">Marley</h5>
-                    <figure class="effect-marley">
-                      <img src="assets/img/gallery/26.jpg" alt="img">
-                      <figcaption>
-                        <h2>Sweet
-                          <span>Marley</span>
-                        </h2>
-                        <p>Marley tried to convince her but she was not interested.</p>
-                      </figcaption>
-                    </figure>
-                  </div>
-                  <div class="col-md-6 col-12">
-                    <h5 class="text-bold-400 text-uppercase">Ruby</h5>
-                    <figure class="effect-ruby">
-                      <img src="assets/img/gallery/9.jpg" alt="img">
-                      <figcaption>
-                        <h2>Glowing
-                          <span>Ruby</span>
-                        </h2>
-                        <p>Ruby did not need any help. Everybody knew that.</p>
-                      </figcaption>
-                    </figure>
-                  </div>
-                </div>
+              <div class="d-flex justify-content-center p-2">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="currentPage" [pageSize]="pageSize" (pageChange)="onPageChange($event)"></ngb-pagination>
               </div>
-
-              <div class="grid-hover">
-                <div class="row">
-                  <div class="col-md-6 col-12">
-                    <h5 class="text-bold-400 text-uppercase">Roxy</h5>
-                    <figure class="effect-roxy">
-                      <img src="assets/img/gallery/10.jpg" alt="img">
-                      <figcaption>
-                        <h2>Charming
-                          <span>Roxy</span>
-                        </h2>
-                        <p>Roxy was my best friend. She'd cross any border for me.</p>
-                      </figcaption>
-                    </figure>
-                  </div>
-                  <div class="col-md-6 col-12">
-                    <h5 class="text-bold-400 text-uppercase">Bubba</h5>
-                    <figure class="effect-bubba">
-                      <img src="assets/img/gallery/11.jpg" alt="img">
-                      <figcaption>
-                        <h2>Fresh
-                          <span>Bubba</span>
-                        </h2>
-                        <p>Bubba likes to appear out of thin air.</p>
-                      </figcaption>
-                    </figure>
-                  </div>
-                </div>
-              </div>
-
-              <div class="grid-hover">
-                <div class="row">
-                  <div class="col-md-6 col-12">
-                    <h5 class="text-bold-400 text-uppercase">Romeo</h5>
-                    <figure class="effect-romeo">
-                      <img src="assets/img/gallery/24.jpg" alt="img">
-                      <figcaption>
-                        <h2>Wild
-                          <span>Romeo</span>
-                        </h2>
-                        <p>Romeo never knows what he wants. He seemed to be very cross about something.</p>
-                      </figcaption>
-                    </figure>
-                  </div>
-                  <div class="col-md-6 col-12">
-                    <h5 class="text-bold-400 text-uppercase">Dexter</h5>
-                    <figure class="effect-dexter">
-                      <img src="assets/img/gallery/13.jpg" alt="img">
-                      <figcaption>
-                        <h2>Strange
-                          <span>Dexter</span>
-                        </h2>
-                        <p>Dexter had his own strange way. You could watch him training ants.
-                        </p>
-                      </figcaption>
-                    </figure>
-                  </div>
-                </div>
-              </div>
-
-              <div class="grid-hover">
-                <div class="row">
-                  <div class="col-md-6 col-12">
-                    <h5 class="text-bold-400 text-uppercase">Sarah</h5>
-                    <figure class="effect-sarah">
-                      <img src="assets/img/gallery/14.jpg" alt="img">
-                      <figcaption>
-                        <h2>Free
-                          <span>Sarah</span>
-                        </h2>
-                        <p>Sarah likes to watch clouds. She's quite depressed.</p>
-                      </figcaption>
-                    </figure>
-                  </div>
-                  <div class="col-md-6 col-12">
-                    <h5 class="text-bold-400 text-uppercase">Chico</h5>
-                    <figure class="effect-chico">
-                      <img src="assets/img/gallery/15.jpg" alt="img">
-                      <figcaption>
-                        <h2>Silly
-                          <span>Chico</span>
-                        </h2>
-                        <p>Chico's main fear was missing the morning bus.</p>
-                      </figcaption>
-                    </figure>
-                  </div>
-                </div>
-              </div>
-
-              <div class="grid-hover">
-                <div class="row">
-                  <div class="col-md-6 col-12">
-                    <h5 class="text-bold-400 text-uppercase">Milo</h5>
-                    <figure class="effect-milo">
-                      <img src="assets/img/gallery/31.jpg" alt="img">
-                      <figcaption>
-                        <h2>Faithful
-                          <span>Milo</span>
-                        </h2>
-                        <p>Milo went to the woods. He took a fun ride and never came back.
-                        </p>
-                      </figcaption>
-                    </figure>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
-  </section>
-  <!--Gallery Hover Effect Starts-->
+  </div>
+</section>
+<ng-template #content let-c="close" let-d="dismiss">
+  <form class="needs-validation" #userForm="ngForm" (ngSubmit)="userForm.form.valid && onSubmit(userForm)">
+    <div class="modal-header">
+      <h4 class="modal-title">{{ "Buildings.Building" | localize }}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="col-md-12 mb-4 form-group">
+          <label for="titleEn"> {{ "EnglishTitle" | localize }}</label>
+          <input type="text" name="titleEn" class="form-control" id="titleEn" [placeholder]="'EnglishTitle' | localize" [(ngModel)]="building.titleEn" #titleEn="ngModel" [ngClass]="{
+              'is-invalid': userForm.submitted && titleEn.invalid,
+              'is-valid': userForm.submitted && !titleEn.invalid
+            }" required />
+          <div *ngIf="
+              userForm.submitted &&
+              (titleEn.invalid || titleEn.errors?.required)
+            " class="invalid-tooltip">
+            {{ "Required" | localize }}
+          </div>
+        </div>
+        <div class="col-md-12 mb-4 form-group">
+          <label for="titleAr"> {{ "ArabicTitle" | localize }}</label>
+          <input type="text" name="titleAr" class="form-control" id="titleAr" [placeholder]="'ArabicTitle' | localize" [(ngModel)]="building.titleAr" #titleAr="ngModel" [ngClass]="{
+              'is-invalid': userForm.submitted && titleAr.invalid,
+              'is-valid': userForm.submitted && !titleAr.invalid
+            }" required />
+          <div *ngIf="
+              userForm.submitted &&
+              (titleAr.invalid || titleAr.errors?.required)
+            " class="invalid-tooltip">
+            {{ "Required" | localize }}
+          </div>
+        </div>
+        <div class="col-md-12 mb-4 form-group">
+          <label for="imageUpload">{{ "Image" | localize }}</label>
+          <label class="custom-file">
+            <input type="file" class="form-control custom-file-input" id="imageUpload" (change)="onImageSelect($event.target.files)" [ngClass]="{
+              'is-invalid': userForm.submitted && !selectedImage && !isImageReady && !building.id,
+              'is-valid': userForm.submitted && selectedImage && isImageReady && !building.id
+            }" [required]="!building.id" />
+            <div *ngIf="userForm.submitted && !selectedImage && !isImageReady && !building.id" class="invalid-tooltip">
+              {{ "Required" | localize }}
+            </div>
+            <label class="custom-file-label" for="imageUpload">
+              {{ selectedImageName || "ChooseFile" | localize }}
+            </label>
+            <div *ngIf="building.imageUrl">
+              <img class="img-fluid" [src]="building.imageUrl" alt="image" width="90" height="90" />
+              <button type="button" class="btn btn-danger bg-light-danger m-1" (click)="deleteImage(building.id)">
+                <i class="ft-trash"></i>
+                {{ "DeleteImage" | localize }}
+              </button>
+            </div>
+          </label>
+          <div *ngIf="isImageReady">
+            <button type="button" [disabled]="saving" *ngIf="building.id" class="btn btn-success bg-light-success m-1" (click)="uploadImage(building.id)">
+              <i class="ft-upload"></i>
+              {{ "Upload" | localize }}
+            </button>
+            <button type="button" class="btn btn-success bg-light-danger m-1" (click)="removeImage()">
+              <i class="ft-trash-2"></i>
+              {{ "Remove" | localize }}
+            </button>
+          </div>
+        </div>
+        <div class="col-md-12 mb-4 form-group">
+          <label for="iconUpload">{{ "Icon" | localize }}</label>
+          <label class="custom-file">
+            <input type="file" class="form-control custom-file-input" id="iconUpload" (change)="onIconSelect($event.target.files)" [ngClass]="{
+              'is-invalid': userForm.submitted && !selectedIcon && !isIconReady && !building.id,
+              'is-valid': userForm.submitted && selectedIcon && isIconReady && !building.id
+            }" [required]="!building.id" />
+            <div *ngIf="userForm.submitted && !selectedIcon && !isIconReady && !building.id" class="invalid-tooltip">
+              {{ "Required" | localize }}
+            </div>
+            <label class="custom-file-label" for="iconUpload">
+              {{ selectedIconName || "ChooseFile" | localize }}
+            </label>
+            <div *ngIf="building.iconUrl">
+              <img class="img-fluid" [src]="building.iconUrl" alt="icon" width="90" height="90" />
+              <button type="button" class="btn btn-danger bg-light-danger m-1" (click)="deleteIcon(building.id)">
+                <i class="ft-trash"></i>
+                {{ "DeleteImage" | localize }}
+              </button>
+            </div>
+          </label>
+          <div *ngIf="isIconReady">
+            <button type="button" [disabled]="saving" *ngIf="building.id" class="btn btn-success bg-light-success m-1" (click)="uploadIcon(building.id)">
+              <i class="ft-upload"></i>
+              {{ "Upload" | localize }}
+            </button>
+            <button type="button" class="btn btn-success bg-light-danger m-1" (click)="removeIcon()">
+              <i class="ft-trash-2"></i>
+              {{ "Remove" | localize }}
+            </button>
+          </div>
+        </div>
+        <div class="col-md-12 mb-4 form-group">
+          <label for="descriptionEn">
+            {{ "EnglishDescription" | localize }}</label>
+          <textarea id="descriptionEn" rows="4" class="form-control" name="descriptionEn" [(ngModel)]="building.descriptionEn" #descriptionEn="ngModel" [ngClass]="{
+              'is-invalid': userForm.submitted && descriptionEn.invalid,
+              'is-valid': userForm.submitted && !descriptionEn.invalid
+            }" required></textarea>
+          <div *ngIf="
+              userForm.submitted &&
+              (descriptionEn.invalid || descriptionEn.errors?.required)
+            " class="invalid-tooltip">
+            {{ "Required" | localize }}
+          </div>
+        </div>
+        <div class="col-md-12 mb-4 form-group">
+          <label for="descriptionAr">
+            {{ "ArabicDescription" | localize }}</label>
+          <textarea id="descriptionAr" rows="4" class="form-control" name="descriptionAr" [(ngModel)]="building.descriptionAr" #descriptionAr="ngModel" [ngClass]="{
+              'is-invalid': userForm.submitted && descriptionAr.invalid,
+              'is-valid': userForm.submitted && !descriptionAr.invalid
+            }" required></textarea>
+          <div *ngIf="
+              userForm.submitted &&
+              (descriptionAr.invalid || descriptionAr.errors?.required)
+            " class="invalid-tooltip">
+            {{ "Required" | localize }}
+          </div>
+        </div>
+        <div class="col-md-12 mb-4 form-group">
+          <div class="checkbox">
+            <input type="checkbox" id="isActiveCheckbox" name="isActive" [(ngModel)]="building.isActive" />
+            <label for="isActiveCheckbox">
+              <span>{{ "IsActive" | localize }}</span>
+            </label>
+          </div>
+        </div>
+        <div class="col-md-12 mb-4 form-group">
+          <div class="checkbox">
+            <input type="checkbox" id="isHomeCheckbox" name="isHome" [(ngModel)]="building.isHome" />
+            <label for="isHomeCheckbox">
+              <span>{{ "IsHome" | localize }}</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary mr-2" [disabled]="saving">
+        <i class="ft-check-square mr-1"></i>{{ "Save" | localize }}
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="c('Close click')">
+        <i class="ft-x mr-1"></i>{{ "Cancel" | localize }}
+      </button>
+    </div>
+  </form>
+</ng-template>

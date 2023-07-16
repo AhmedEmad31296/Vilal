@@ -1,10 +1,11 @@
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { WINDOW_PROVIDERS } from '@shared/services/window.service';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from "ngx-spinner";
 
+import { NgbPaginationModule } from "@ng-bootstrap/ng-bootstrap";
 import { HttpClientJsonpModule } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -30,7 +31,6 @@ import { NotificationSidebarComponent } from './layout/notification-sidebar/noti
 import { UsersComponent } from '@app/users/users.component';
 import { CreateUserDialogComponent } from '@app/users/create-user/create-user-dialog.component';
 import { EditUserDialogComponent } from '@app/users/edit-user/edit-user-dialog.component';
-import { ChangePasswordComponent } from './users/change-password/change-password.component';
 import { ResetPasswordDialogComponent } from './users/reset-password/reset-password.component';
 import {
   PerfectScrollbarModule,
@@ -39,6 +39,7 @@ import {
 } from 'ngx-perfect-scrollbar';
 import { ServicesComponent } from './services/services.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelPropagation: false
@@ -54,7 +55,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     UsersComponent,
     CreateUserDialogComponent,
     EditUserDialogComponent,
-    ChangePasswordComponent,
     ResetPasswordDialogComponent,
     // layout
     HeaderComponent,
@@ -82,16 +82,21 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SharedModule,
     NgxPaginationModule,
     NgxSpinnerModule,
-    PerfectScrollbarModule
+    PerfectScrollbarModule,
+    NgbPaginationModule,
   ],
-  providers:[
+  providers: [
     WINDOW_PROVIDERS,
+    DecimalPipe,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
-      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     },
-    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
-    BsDropdownConfig
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+    },
+    BsDropdownConfig,
   ],
   entryComponents: [
     // users

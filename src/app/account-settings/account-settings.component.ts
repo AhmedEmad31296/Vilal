@@ -1,4 +1,8 @@
-import { Component, Injector, OnInit, ViewEncapsulation } from "@angular/core";
+import {
+  Component,
+  Injector,
+  OnInit,
+} from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { AppComponentBase } from "@shared/app-component-base";
 import { ToastrService } from "ngx-toastr";
@@ -21,7 +25,7 @@ import { finalize } from "rxjs/operators";
     "./account-settings.component.scss",
     "../../assets/sass/libs/select.scss",
   ],
-  encapsulation: ViewEncapsulation.None,
+  //changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccountSettingsComponent
   extends AppComponentBase
@@ -162,6 +166,7 @@ export class AccountSettingsComponent
     this._userService.update(this.updatedUser).subscribe(
       (res) => {
         this.getUserInfo();
+        this.saving = false;
       },
       () => {
         this.saving = false;
@@ -184,6 +189,7 @@ export class AccountSettingsComponent
       )
       .subscribe((success) => {
         if (success) {
+          this.saving = false;
           this.toastr.success();
         }
       });
@@ -201,7 +207,8 @@ export class AccountSettingsComponent
     this._socialMediaService.update(this.updatedSocialLink).subscribe(
       (res) => {
         this.getSocialLinks();
-          this.toastr.success(res);
+        this.toastr.success(res);
+        this.saving = false;
       },
       () => {
         this.saving = false;
