@@ -2,9 +2,9 @@ import {
   Component,
   Injector,
   OnInit,
-  ChangeDetectionStrategy,
   ViewChild,
   ElementRef,
+  ChangeDetectorRef,
 } from "@angular/core";
 import { AppComponentBase } from "@shared/app-component-base";
 import {
@@ -18,7 +18,6 @@ import { ToastrService } from "ngx-toastr";
 @Component({
   templateUrl: "./about.component.html",
   styleUrls: ["../../assets/css/uploader.css"],
-  //changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AboutComponent extends AppComponentBase implements OnInit {
   @ViewChild("imageInput") imageInput: ElementRef<HTMLInputElement>;
@@ -31,6 +30,7 @@ export class AboutComponent extends AppComponentBase implements OnInit {
   constructor(
     injector: Injector,
     private _aboutService: AboutServiceProxy,
+    private changeDetectorRef: ChangeDetectorRef,
     private toastr: ToastrService
   ) {
     super(injector);
@@ -42,6 +42,7 @@ export class AboutComponent extends AppComponentBase implements OnInit {
   get() {
     this._aboutService.get().subscribe((result) => {
       this.about = result;
+      this.changeDetectorRef.detectChanges();
     });
   }
   update() {

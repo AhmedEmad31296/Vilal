@@ -22,7 +22,6 @@ import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 @Component({
   selector: "app-contact-us",
   templateUrl: "./contact-us.component.html",
-  //changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactUsComponent extends AppComponentBase implements OnInit {
   data: MessageFullInfoDto[];

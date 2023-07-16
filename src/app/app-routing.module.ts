@@ -4,7 +4,6 @@ import { AppComponent } from './app.component';
 import { AppRouteGuard } from '@shared/auth/auth-route-guard';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
-import { UsersComponent } from './users/users.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { ServicesComponent } from './services/services.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
@@ -19,12 +18,6 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
           {
             path: "home",
             component: HomeComponent,
-            canActivate: [AppRouteGuard],
-          },
-          {
-            path: "users",
-            component: UsersComponent,
-            data: { permission: "Pages.Users" },
             canActivate: [AppRouteGuard],
           },
           {

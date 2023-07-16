@@ -7,16 +7,9 @@ import {
   ContactUSStatisticDto,
 } from "@shared/service-proxies/service-proxies";
 
-export interface Chart {
-  options?: any;
-  responsiveOptions?: any;
-  // plugins?: any;
-}
-
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
-  //styleUrls: ['./home.component.scss']
 })
 export class HomeComponent extends AppComponentBase implements OnInit {
   contactUsStatistic = new ContactUSStatisticDto();

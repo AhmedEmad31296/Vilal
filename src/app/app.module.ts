@@ -27,11 +27,7 @@ import { HorizontalMenuComponent } from './layout/horizontal-menu/horizontal-men
 import { CustomizerComponent } from './layout/customizer/customizer.component';
 import { AutocompleteDirective } from '@shared/autocomplete/autocomplete.directive';
 import { NotificationSidebarComponent } from './layout/notification-sidebar/notification-sidebar.component'
-// users
-import { UsersComponent } from '@app/users/users.component';
-import { CreateUserDialogComponent } from '@app/users/create-user/create-user-dialog.component';
-import { EditUserDialogComponent } from '@app/users/edit-user/edit-user-dialog.component';
-import { ResetPasswordDialogComponent } from './users/reset-password/reset-password.component';
+
 import {
   PerfectScrollbarModule,
   PERFECT_SCROLLBAR_CONFIG,
@@ -51,11 +47,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HomeComponent,
     AboutComponent,
     AccountSettingsComponent,
-    // users
-    UsersComponent,
-    CreateUserDialogComponent,
-    EditUserDialogComponent,
-    ResetPasswordDialogComponent,
     // layout
     HeaderComponent,
     FooterComponent,
@@ -97,12 +88,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     },
     BsDropdownConfig,
-  ],
-  entryComponents: [
-    // users
-    CreateUserDialogComponent,
-    EditUserDialogComponent,
-    ResetPasswordDialogComponent,
   ],
 })
 export class AppModule {}
