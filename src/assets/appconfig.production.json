@@ -1,5 +1,5 @@
 {
-  "remoteServiceBaseUrl": "https://ahmedemad031296-001-site1.dtempurl.com/api/services/app/",
+  "remoteServiceBaseUrl": "https://ahmedemad031296-001-site1.dtempurl.com/api/services/app",
   "appBaseUrl": "http://localhost:4200",
   "localeMappings": [
     {
