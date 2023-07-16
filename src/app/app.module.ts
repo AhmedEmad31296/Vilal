@@ -19,6 +19,8 @@ import { ServiceProxyModule } from '@shared/service-proxies/service-proxy.module
 import { SharedModule } from '@shared/shared.module';
 import { HomeComponent } from '@app/home/home.component';
 import { AboutComponent } from '@app/about/about.component';
+import { ErrorPageComponent } from "./error/error-page.component";
+
 // layout
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
@@ -47,6 +49,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HomeComponent,
     AboutComponent,
     AccountSettingsComponent,
+    ErrorPageComponent,
     // layout
     HeaderComponent,
     FooterComponent,

@@ -132,7 +132,9 @@
                   </td>
                   <td>{{ villa.titleEn | localize }}</td>
                   <td>{{ villa.titleAr | localize }}</td>
-                  <img class="height-50" [src]="villa.iconUrl" alt="Villa Icon" />
+                  <td>
+                    <img class="height-50" [src]="villa.iconUrl" alt="Villa Icon" />
+                  </td>
                   <td>
                     <span *ngIf="villa.isActive" class="badge badge-pill bg-light-primary cursor-pointer">{{ "Yes" | localize }}</span>
                     <span *ngIf="!villa.isActive" class="badge badge-pill bg-light-danger cursor-pointer">{{ "No" | localize }}</span>
