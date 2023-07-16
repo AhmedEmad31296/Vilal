@@ -1,5 +1,5 @@
 {
-  "remoteServiceBaseUrl": "https://ahmedemad031296-001-site1.dtempurl.com",
+  "remoteServiceBaseUrl": "https://localhost:44311",
   "appBaseUrl": "https://vilal-dashboard.netlify.app/",
   "localeMappings": [
     {

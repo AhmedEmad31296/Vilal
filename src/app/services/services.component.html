@@ -37,7 +37,7 @@
                   <button type="button" class="btn btn-primary mr-2" (click)="openModal(content, 0)">
                     <span class="d-flex align-items-center">
                       <i class="ft-plus mr-1"></i>
-                      <span>{{ "Create" | localize }}</span>
+                      <span>{{ "Datatable.Create" | localize }}</span>
                     </span>
                   </button>
                 </div>
@@ -155,7 +155,7 @@
         <div class="col-md-12 mb-4 form-group">
           <label for="imageUpload">{{ "Image" | localize }}</label>
           <label class="custom-file">
-            <input type="file" class="form-control custom-file-input" id="imageUpload" (change)="onImageSelect($event.target.files)" [ngClass]="{
+            <input type="file" class="form-control custom-file-input" id="imageUpload" #imageInput (change)="onImageSelect($event.target.files)" [ngClass]="{
               'is-invalid': userForm.submitted && !selectedImage && !isImageReady && !building.id,
               'is-valid': userForm.submitted && selectedImage && isImageReady && !building.id
             }" [required]="!building.id" />
@@ -174,7 +174,7 @@
             </div>
           </label>
           <div *ngIf="isImageReady">
-            <button type="button" [disabled]="saving" *ngIf="building.id" class="btn btn-success bg-light-success m-1" (click)="uploadImage(building.id)">
+            <button type="button" [disabled]="saving" *ngIf="building.id && isImageReady" class="btn btn-success bg-light-success m-1" (click)="uploadImage(building.id)">
               <i class="ft-upload"></i>
               {{ "Upload" | localize }}
             </button>
@@ -187,7 +187,7 @@
         <div class="col-md-12 mb-4 form-group">
           <label for="iconUpload">{{ "Icon" | localize }}</label>
           <label class="custom-file">
-            <input type="file" class="form-control custom-file-input" id="iconUpload" (change)="onIconSelect($event.target.files)" [ngClass]="{
+            <input type="file" class="form-control custom-file-input" id="iconUpload" #iconInput (change)="onIconSelect($event.target.files)" [ngClass]="{
               'is-invalid': userForm.submitted && !selectedIcon && !isIconReady && !building.id,
               'is-valid': userForm.submitted && selectedIcon && isIconReady && !building.id
             }" [required]="!building.id" />
@@ -206,7 +206,7 @@
             </div>
           </label>
           <div *ngIf="isIconReady">
-            <button type="button" [disabled]="saving" *ngIf="building.id" class="btn btn-success bg-light-success m-1" (click)="uploadIcon(building.id)">
+            <button type="button" [disabled]="saving" *ngIf="building.id && isIconReady" class="btn btn-success bg-light-success m-1" (click)="uploadIcon(building.id)">
               <i class="ft-upload"></i>
               {{ "Upload" | localize }}
             </button>

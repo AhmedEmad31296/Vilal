@@ -3,6 +3,8 @@ import {
   Injector,
   OnInit,
   ChangeDetectionStrategy,
+  ViewChild,
+  ElementRef,
 } from "@angular/core";
 import { AppComponentBase } from "@shared/app-component-base";
 import {
@@ -19,6 +21,7 @@ import { ToastrService } from "ngx-toastr";
   //changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AboutComponent extends AppComponentBase implements OnInit {
+  @ViewChild("imageInput") imageInput: ElementRef<HTMLInputElement>;
   about = new AboutVilalDto();
   updatedAbout = new UpdateAboutVilalInput();
   saving = false;
@@ -89,6 +92,8 @@ export class AboutComponent extends AppComponentBase implements OnInit {
       };
       this.selectedFileName = file.name;
       this.isFileReady = true;
+    } else {
+      this.remove();
     }
   }
 
@@ -96,5 +101,9 @@ export class AboutComponent extends AppComponentBase implements OnInit {
     this.selectedFile = null;
     this.selectedFileName = null;
     this.isFileReady = false;
+    // Clear the file input value
+    if (this.imageInput && this.imageInput.nativeElement) {
+      this.imageInput.nativeElement.value = "";
+    }
   }
 }

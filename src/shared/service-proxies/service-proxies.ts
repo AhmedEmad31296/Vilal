@@ -1077,6 +1077,57 @@ export class BuildingServiceProxy {
         }
         return _observableOf<CustomBuildingDto[]>(null as any);
     }
+
+    /**
+     * @return Success
+     */
+    getStatistics(): Observable<BuildingStatisticDto> {
+        let url_ = this.baseUrl + "/api/services/app/Building/GetStatistics";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetStatistics(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetStatistics(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<BuildingStatisticDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<BuildingStatisticDto>;
+        }));
+    }
+
+    protected processGetStatistics(response: HttpResponseBase): Observable<BuildingStatisticDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = BuildingStatisticDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<BuildingStatisticDto>(null as any);
+    }
 }
 
 @Injectable()
@@ -1399,6 +1450,57 @@ export class ContactUSServiceProxy {
             }));
         }
         return _observableOf<string>(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    getStatistics(): Observable<ContactUSStatisticDto> {
+        let url_ = this.baseUrl + "/api/services/app/ContactUS/GetStatistics";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetStatistics(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetStatistics(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<ContactUSStatisticDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<ContactUSStatisticDto>;
+        }));
+    }
+
+    protected processGetStatistics(response: HttpResponseBase): Observable<ContactUSStatisticDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ContactUSStatisticDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ContactUSStatisticDto>(null as any);
     }
 }
 
@@ -3391,6 +3493,65 @@ export interface IAuthenticateResultModel {
     userId: number;
 }
 
+export class BuildingStatisticDto implements IBuildingStatisticDto {
+    totalVilalCount: number;
+    homeVilalCount: number;
+    vilal: GetBuildingShortInfoStatistic[] | undefined;
+
+    constructor(data?: IBuildingStatisticDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalVilalCount = _data["totalVilalCount"];
+            this.homeVilalCount = _data["homeVilalCount"];
+            if (Array.isArray(_data["vilal"])) {
+                this.vilal = [] as any;
+                for (let item of _data["vilal"])
+                    this.vilal.push(GetBuildingShortInfoStatistic.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): BuildingStatisticDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new BuildingStatisticDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalVilalCount"] = this.totalVilalCount;
+        data["homeVilalCount"] = this.homeVilalCount;
+        if (Array.isArray(this.vilal)) {
+            data["vilal"] = [];
+            for (let item of this.vilal)
+                data["vilal"].push(item.toJSON());
+        }
+        return data;
+    }
+
+    clone(): BuildingStatisticDto {
+        const json = this.toJSON();
+        let result = new BuildingStatisticDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IBuildingStatisticDto {
+    totalVilalCount: number;
+    homeVilalCount: number;
+    vilal: GetBuildingShortInfoStatistic[] | undefined;
+}
+
 export class ChangePasswordDto implements IChangePasswordDto {
     currentPassword: string;
     newPassword: string;
@@ -3522,6 +3683,65 @@ export class ChangeUserLanguageDto implements IChangeUserLanguageDto {
 
 export interface IChangeUserLanguageDto {
     languageName: string;
+}
+
+export class ContactUSStatisticDto implements IContactUSStatisticDto {
+    readCount: number;
+    unReadCount: number;
+    messages: GetMessageShortInfoStatistic[] | undefined;
+
+    constructor(data?: IContactUSStatisticDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.readCount = _data["readCount"];
+            this.unReadCount = _data["unReadCount"];
+            if (Array.isArray(_data["messages"])) {
+                this.messages = [] as any;
+                for (let item of _data["messages"])
+                    this.messages.push(GetMessageShortInfoStatistic.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ContactUSStatisticDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ContactUSStatisticDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["readCount"] = this.readCount;
+        data["unReadCount"] = this.unReadCount;
+        if (Array.isArray(this.messages)) {
+            data["messages"] = [];
+            for (let item of this.messages)
+                data["messages"].push(item.toJSON());
+        }
+        return data;
+    }
+
+    clone(): ContactUSStatisticDto {
+        const json = this.toJSON();
+        let result = new ContactUSStatisticDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IContactUSStatisticDto {
+    readCount: number;
+    unReadCount: number;
+    messages: GetMessageShortInfoStatistic[] | undefined;
 }
 
 export class CreateRoleDto implements ICreateRoleDto {
@@ -4035,6 +4255,73 @@ export interface IFlatPermissionDto {
     description: string | undefined;
 }
 
+export class GetBuildingShortInfoStatistic implements IGetBuildingShortInfoStatistic {
+    id: number;
+    titleAr: string | undefined;
+    titleEn: string | undefined;
+    iconUrl: string | undefined;
+    isHome: boolean;
+    isActive: boolean;
+    imageUrl: string | undefined;
+
+    constructor(data?: IGetBuildingShortInfoStatistic) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.titleAr = _data["titleAr"];
+            this.titleEn = _data["titleEn"];
+            this.iconUrl = _data["iconUrl"];
+            this.isHome = _data["isHome"];
+            this.isActive = _data["isActive"];
+            this.imageUrl = _data["imageUrl"];
+        }
+    }
+
+    static fromJS(data: any): GetBuildingShortInfoStatistic {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetBuildingShortInfoStatistic();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["titleAr"] = this.titleAr;
+        data["titleEn"] = this.titleEn;
+        data["iconUrl"] = this.iconUrl;
+        data["isHome"] = this.isHome;
+        data["isActive"] = this.isActive;
+        data["imageUrl"] = this.imageUrl;
+        return data;
+    }
+
+    clone(): GetBuildingShortInfoStatistic {
+        const json = this.toJSON();
+        let result = new GetBuildingShortInfoStatistic();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IGetBuildingShortInfoStatistic {
+    id: number;
+    titleAr: string | undefined;
+    titleEn: string | undefined;
+    iconUrl: string | undefined;
+    isHome: boolean;
+    isActive: boolean;
+    imageUrl: string | undefined;
+}
+
 export class GetCurrentLoginInformationsOutput implements IGetCurrentLoginInformationsOutput {
     application: ApplicationInfoDto;
     user: UserLoginInfoDto;
@@ -4084,6 +4371,57 @@ export interface IGetCurrentLoginInformationsOutput {
     application: ApplicationInfoDto;
     user: UserLoginInfoDto;
     tenant: TenantLoginInfoDto;
+}
+
+export class GetMessageShortInfoStatistic implements IGetMessageShortInfoStatistic {
+    name: string | undefined;
+    email: string | undefined;
+    isRead: boolean;
+
+    constructor(data?: IGetMessageShortInfoStatistic) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+            this.email = _data["email"];
+            this.isRead = _data["isRead"];
+        }
+    }
+
+    static fromJS(data: any): GetMessageShortInfoStatistic {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetMessageShortInfoStatistic();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["email"] = this.email;
+        data["isRead"] = this.isRead;
+        return data;
+    }
+
+    clone(): GetMessageShortInfoStatistic {
+        const json = this.toJSON();
+        let result = new GetMessageShortInfoStatistic();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IGetMessageShortInfoStatistic {
+    name: string | undefined;
+    email: string | undefined;
+    isRead: boolean;
 }
 
 export class GetRoleForEditOutput implements IGetRoleForEditOutput {

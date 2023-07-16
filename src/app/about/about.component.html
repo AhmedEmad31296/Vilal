@@ -84,7 +84,7 @@
         <div class="card-content">
           <div class="card-body pt-0">
             <label class="custom-file">
-              <input type="file" class="custom-file-input" id="fileUpload" (change)="onFileSelect($event.target.files)" />
+              <input type="file" class="custom-file-input" id="fileUpload" #imageInput (change)="onFileSelect($event.target.files)" />
               <label class="custom-file-label" for="fileUpload">
                 {{ selectedFileName || "ChooseFile" | localize }}
               </label>

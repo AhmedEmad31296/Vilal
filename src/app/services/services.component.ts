@@ -1,12 +1,12 @@
-// services.component.ts
-
 import {
   Component,
   Injector,
   OnInit,
   QueryList,
   ViewChildren,
-  ChangeDetectionStrategy,
+  ViewChild,
+  ElementRef,
+  ChangeDetectorRef,
 } from "@angular/core";
 import {
   BuildingServiceProxy,
@@ -32,9 +32,10 @@ import { NgForm } from "@angular/forms";
   selector: "app-Service",
   templateUrl: "./services.component.html",
   styleUrls: ["../../assets/css/uploader.css"],
-  //changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ServicesComponent extends AppComponentBase implements OnInit {
+  @ViewChild("imageInput") imageInput: ElementRef<HTMLInputElement>;
+  @ViewChild("iconInput") iconInput: ElementRef<HTMLInputElement>;
   data: VilalBuildingPagedDto[];
   building: VilalBuildingDto = new VilalBuildingDto();
   totalItems: number;
@@ -58,6 +59,7 @@ export class ServicesComponent extends AppComponentBase implements OnInit {
     injector: Injector,
     private modalService: NgbModal,
     private _buildingService: BuildingServiceProxy,
+    private changeDetectorRef: ChangeDetectorRef,
     private toastr: ToastrService
   ) {
     super(injector);
@@ -111,6 +113,7 @@ export class ServicesComponent extends AppComponentBase implements OnInit {
         this.totalItems = data.totalCount;
         this.totalPages = data.totalPages;
         this.loading = false;
+        this.changeDetectorRef.detectChanges();
       });
   }
   onSubmit(form: NgForm): void {
@@ -161,6 +164,8 @@ export class ServicesComponent extends AppComponentBase implements OnInit {
   }
   update() {
     this.saving = true;
+    if (this.isImageReady) this.uploadImage(this.building.id);
+    if (this.isIconReady) this.uploadIcon(this.building.id);
     this._buildingService.update(this.building).subscribe(
       (res) => {
         this.saving = false;
@@ -219,6 +224,7 @@ export class ServicesComponent extends AppComponentBase implements OnInit {
       (res) => {
         this.get(id);
         this.saving = false;
+        this.isImageReady = false;
         this.toastr.success(res);
       },
       (error) => {
@@ -233,6 +239,7 @@ export class ServicesComponent extends AppComponentBase implements OnInit {
       (res) => {
         this.get(id);
         this.saving = false;
+        this.isIconReady = false;
         this.toastr.success(res);
       },
       (error) => {
@@ -251,6 +258,8 @@ export class ServicesComponent extends AppComponentBase implements OnInit {
       };
       this.selectedImageName = file.name;
       this.isImageReady = true;
+    } else {
+      this.removeImage();
     }
   }
 
@@ -258,6 +267,10 @@ export class ServicesComponent extends AppComponentBase implements OnInit {
     this.selectedImage = null;
     this.selectedImageName = null;
     this.isImageReady = false;
+    // Clear the file input value
+    if (this.imageInput && this.imageInput.nativeElement) {
+      this.imageInput.nativeElement.value = "";
+    }
   }
 
   selectedIcon: FileParameter | null = null;
@@ -270,6 +283,8 @@ export class ServicesComponent extends AppComponentBase implements OnInit {
       };
       this.selectedIconName = file.name;
       this.isIconReady = true;
+    } else {
+      this.removeImage();
     }
   }
 
@@ -277,6 +292,10 @@ export class ServicesComponent extends AppComponentBase implements OnInit {
     this.selectedIcon = null;
     this.selectedIconName = null;
     this.isIconReady = false;
+    // Clear the file input value
+    if (this.iconInput && this.iconInput.nativeElement) {
+      this.iconInput.nativeElement.value = "";
+    }
   }
   sort(column: string): void {
     if (this.sortColumn === column) {

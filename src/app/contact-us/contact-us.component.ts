@@ -5,6 +5,7 @@ import {
   QueryList,
   ViewChildren,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from "@angular/core";
 import {
   ContactUSServiceProxy,
@@ -40,6 +41,7 @@ export class ContactUsComponent extends AppComponentBase implements OnInit {
   constructor(
     injector: Injector,
     private modalService: NgbModal,
+    private changeDetectorRef: ChangeDetectorRef,
     private _contactUsService: ContactUSServiceProxy
   ) {
     super(injector);
@@ -52,6 +54,7 @@ export class ContactUsComponent extends AppComponentBase implements OnInit {
     this.getMessage(id);
     this.modalService.open(content).result.then(
       (result) => {
+        this.loadData();
         //this.closeResult = `Closed with: ${result}`;
       },
       (reason) => {
@@ -85,6 +88,7 @@ export class ContactUsComponent extends AppComponentBase implements OnInit {
         this.totalItems = data.totalCount;
         this.totalPages = data.totalPages;
         this.loading = false;
+        this.changeDetectorRef.detectChanges();
       });
   }
   getMessage(id: number): void {
