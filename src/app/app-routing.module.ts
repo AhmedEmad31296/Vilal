@@ -9,42 +9,47 @@ import { ServicesComponent } from "./services/services.component";
 import { ContactUsComponent } from "./contact-us/contact-us.component";
 import { ErrorPageComponent } from "./error/error-page.component";
 
-const routes: Routes = [
-  {
-    path: "",
-    component: AppComponent,
-    canActivate: [AppRouteGuard],
-    children: [
+@NgModule({
+  imports: [
+    RouterModule.forChild([
+      {
+        path: "",
+        component: AppComponent,
+        canActivate: [AppRouteGuard],
+        children: [
+          {
+            path: "home",
+            component: HomeComponent,
+          },
+          {
+            path: "about",
+            component: AboutComponent,
+          },
+          {
+            path: "services",
+            component: ServicesComponent,
+          },
+          {
+            path: "contact-us",
+            component: ContactUsComponent,
+          },
+          {
+            path: "account-settings",
+            component: AccountSettingsComponent,
+          },
+          {
+            path: "",
+            redirectTo: "/home",
+            pathMatch: "full",
+          },
+        ],
+      },
       {
         path: "**",
         component: ErrorPageComponent,
       },
-      {
-        path: "home",
-        component: HomeComponent,
-      },
-      {
-        path: "about",
-        component: AboutComponent,
-      },
-      {
-        path: "services",
-        component: ServicesComponent,
-      },
-      {
-        path: "contact-us",
-        component: ContactUsComponent,
-      },
-      {
-        path: "account-settings",
-        component: AccountSettingsComponent,
-      },
-    ],
-  },
-];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
+    ]),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
