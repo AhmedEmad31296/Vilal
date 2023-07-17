@@ -1,14 +1,15 @@
-import { Component, Injector } from '@angular/core';
+import { Component, Inject, Injector, OnDestroy } from '@angular/core';
 import { AppComponentBase } from '@shared/app-component-base';
 import { AppAuthService } from '@shared/auth/app-auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
+import { DOCUMENT } from '@angular/common';
 @Component({
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent extends AppComponentBase {
+export class LoginComponent extends AppComponentBase implements OnDestroy {
   loginFormSubmitted = false;
   isLoginFailed = false;
 
@@ -22,8 +23,10 @@ export class LoginComponent extends AppComponentBase {
     public authService: AppAuthService,
     private router: Router,
     injector: Injector,
+    @Inject(DOCUMENT) private document: Document
   ) {
     super(injector);
+    this.document.body.classList.add('auth-page');
   }
   get lf() {
     return this.loginForm.controls;
@@ -59,4 +62,8 @@ export class LoginComponent extends AppComponentBase {
     }, 500);
 
     }
+    ngOnDestroy() {
+      this.document.body.classList.add('auth-page');
+    }
+
 }
