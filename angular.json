@@ -21,7 +21,11 @@
             "polyfills": "src/polyfills.ts",
             "assets": [
               "src/assets",
-              "src/favicon.ico",
+              {
+              "glob": "_redirects",
+              "input": "src",
+              "output": "/"
+              },
               {
                 "glob": "abp.signalr.js",
                 "input": "node_modules/abp-web-resources/Abp/Framework/scripts/libs",
@@ -132,7 +136,6 @@
             "tsConfig": "src/tsconfig.spec.json",
             "assets": [
               "src/assets",
-              "src/favicon.ico",
               {
                 "glob": "abp.signalr.js",
                 "input": "node_modules/abp-web-resources/Abp/Framework/scripts/libs",

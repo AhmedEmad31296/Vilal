@@ -90,7 +90,7 @@
               </label>
             </label>
             <div *ngIf="isFileReady">
-              <button type="button" [disabled]="saving" class="btn btn-success bg-light-success m-1" (click)="upload()">
+              <button type="button" [disabled]="!isFileReady" class="btn btn-success bg-light-success m-1" (click)="upload()">
                 <i class="ft-upload"></i>
                 {{ "Upload" | localize }}
               </button>

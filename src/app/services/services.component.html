@@ -174,7 +174,7 @@
             </div>
           </label>
           <div *ngIf="isImageReady">
-            <button type="button" [disabled]="saving" *ngIf="building.id && isImageReady" class="btn btn-success bg-light-success m-1" (click)="uploadImage(building.id)">
+            <button type="button" [disabled]="!isImageReady" *ngIf="building.id && isImageReady" class="btn btn-success bg-light-success m-1" (click)="uploadImage(building.id)">
               <i class="ft-upload"></i>
               {{ "Upload" | localize }}
             </button>
@@ -206,7 +206,7 @@
             </div>
           </label>
           <div *ngIf="isIconReady">
-            <button type="button" [disabled]="saving" *ngIf="building.id && isIconReady" class="btn btn-success bg-light-success m-1" (click)="uploadIcon(building.id)">
+            <button type="button" [disabled]="!isIconReady" *ngIf="building.id && isIconReady" class="btn btn-success bg-light-success m-1" (click)="uploadIcon(building.id)">
               <i class="ft-upload"></i>
               {{ "Upload" | localize }}
             </button>
