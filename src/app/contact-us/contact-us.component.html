@@ -12,16 +12,13 @@
           <div class="card-body">
             <form>
               <div class="d-flex justify-content-between p-2">
-                <div class="form-group form-inline"> {{"Datatable.FullTextSearch"|localize}}
+                <div class="form-group form-inline"> 
+                  <strong>
+                    {{"Datatable.Search"|localize}}
+                  </strong>
                   <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="search" (input)="searchTable()" />
                   <span class="ml-3" *ngIf="loading">{{"Datatable.Loading"|localize}}</span>
                 </div>
-                <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="pageSize" (ngModelChange)="onPageSizeChange($event)">
-                  <option [ngValue]="4">4 {{"Datatable.ItemsPerPage"|localize}}</option>
-                  <option [ngValue]="6">6 {{"Datatable.ItemsPerPage"|localize}}</option>
-                  <option [ngValue]="8">8 {{"Datatable.ItemsPerPage"|localize}}</option>
-                  <option [ngValue]="10">10 {{"Datatable.ItemsPerPage"|localize}}</option>
-                </select>
               </div>
               <div class="table-responsive">
                 <table class="table table-striped">
@@ -76,8 +73,15 @@
                   </tbody>
                 </table>
               </div>
-              <div class="d-flex justify-content-center p-2">
+              <div class="d-flex justify-content-between p-2">
+                 <span>{{ "Datatable.Total" | localize }} : {{totalItems}}</span>
                 <ngb-pagination [collectionSize]="totalItems" [(page)]="currentPage" [pageSize]="pageSize" (pageChange)="onPageChange($event)"></ngb-pagination>
+              <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="pageSize" (ngModelChange)="onPageSizeChange($event)">
+                  <option [ngValue]="4">4 {{"Datatable.ItemsPerPage"|localize}}</option>
+                  <option [ngValue]="6">6 {{"Datatable.ItemsPerPage"|localize}}</option>
+                  <option [ngValue]="8">8 {{"Datatable.ItemsPerPage"|localize}}</option>
+                  <option [ngValue]="10">10 {{"Datatable.ItemsPerPage"|localize}}</option>
+                </select>
               </div>
             </form>
           </div>

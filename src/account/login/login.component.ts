@@ -2,7 +2,6 @@ import { Component, Inject, Injector, OnDestroy } from '@angular/core';
 import { AppComponentBase } from '@shared/app-component-base';
 import { AppAuthService } from '@shared/auth/app-auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
 import { DOCUMENT } from '@angular/common';
 @Component({
@@ -21,7 +20,6 @@ export class LoginComponent extends AppComponentBase implements OnDestroy {
   constructor(
     private spinner: NgxSpinnerService,
     public authService: AppAuthService,
-    private router: Router,
     injector: Injector,
     @Inject(DOCUMENT) private document: Document
   ) {

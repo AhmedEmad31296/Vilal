@@ -77,6 +77,8 @@ export class AccountSettingsComponent
     linkedin: new FormControl(""),
     instagram: new FormControl(""),
     fax: new FormControl(""),
+    appStore: new FormControl(""),
+    googlePlay: new FormControl(""),
   });
 
   constructor(
@@ -125,6 +127,8 @@ export class AccountSettingsComponent
         linkedin: this.socialMedia.linkedin,
         instagram: this.socialMedia.instagram,
         fax: this.socialMedia.fax,
+        appStore: this.socialMedia.appStore,
+        googlePlay: this.socialMedia.googlePlay,
       });
     });
   }
@@ -204,6 +208,8 @@ export class AccountSettingsComponent
     this.updatedSocialLink.instagram = this.socialForm.value.instagram;
     this.updatedSocialLink.linkedin = this.socialForm.value.linkedin;
     this.updatedSocialLink.fax = this.socialForm.value.fax;
+    this.updatedSocialLink.appStore = this.socialForm.value.appStore;
+    this.updatedSocialLink.googlePlay = this.socialForm.value.googlePlay;
     this._socialMediaService.update(this.updatedSocialLink).subscribe(
       (res) => {
         this.getSocialLinks();

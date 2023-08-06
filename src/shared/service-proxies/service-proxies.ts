@@ -4500,6 +4500,8 @@ export class GetSocialMediaFullInfo implements IGetSocialMediaFullInfo {
     email: string | undefined;
     fax: string | undefined;
     phoneNumber: string | undefined;
+    appStore: string | undefined;
+    googlePlay: string | undefined;
 
     constructor(data?: IGetSocialMediaFullInfo) {
         if (data) {
@@ -4520,6 +4522,8 @@ export class GetSocialMediaFullInfo implements IGetSocialMediaFullInfo {
             this.email = _data["email"];
             this.fax = _data["fax"];
             this.phoneNumber = _data["phoneNumber"];
+            this.appStore = _data["appStore"];
+            this.googlePlay = _data["googlePlay"];
         }
     }
 
@@ -4540,6 +4544,8 @@ export class GetSocialMediaFullInfo implements IGetSocialMediaFullInfo {
         data["email"] = this.email;
         data["fax"] = this.fax;
         data["phoneNumber"] = this.phoneNumber;
+        data["appStore"] = this.appStore;
+        data["googlePlay"] = this.googlePlay;
         return data;
     }
 
@@ -4560,6 +4566,8 @@ export interface IGetSocialMediaFullInfo {
     email: string | undefined;
     fax: string | undefined;
     phoneNumber: string | undefined;
+    appStore: string | undefined;
+    googlePlay: string | undefined;
 }
 
 export class InsertMessageInput implements IInsertMessageInput {
@@ -5783,6 +5791,8 @@ export class UpdateSocialMediaInput implements IUpdateSocialMediaInput {
     email: string | undefined;
     fax: string | undefined;
     phoneNumber: string | undefined;
+    appStore: string | undefined;
+    googlePlay: string | undefined;
 
     constructor(data?: IUpdateSocialMediaInput) {
         if (data) {
@@ -5803,6 +5813,8 @@ export class UpdateSocialMediaInput implements IUpdateSocialMediaInput {
             this.email = _data["email"];
             this.fax = _data["fax"];
             this.phoneNumber = _data["phoneNumber"];
+            this.appStore = _data["appStore"];
+            this.googlePlay = _data["googlePlay"];
         }
     }
 
@@ -5823,6 +5835,8 @@ export class UpdateSocialMediaInput implements IUpdateSocialMediaInput {
         data["email"] = this.email;
         data["fax"] = this.fax;
         data["phoneNumber"] = this.phoneNumber;
+        data["appStore"] = this.appStore;
+        data["googlePlay"] = this.googlePlay;
         return data;
     }
 
@@ -5843,6 +5857,8 @@ export interface IUpdateSocialMediaInput {
     email: string | undefined;
     fax: string | undefined;
     phoneNumber: string | undefined;
+    appStore: string | undefined;
+    googlePlay: string | undefined;
 }
 
 export class UserDto implements IUserDto {

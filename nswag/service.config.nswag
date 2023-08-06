@@ -3,7 +3,7 @@
   "defaultVariables": null,
   "documentGenerator": {
     "fromDocument": {
-      "url": "https://ahmedemad031296-001-site1.dtempurl.com/swagger/index.html",
+      "url": "http://api.vilal-sa.com/swagger/v1/swagger.json",
       "output": null
     }
   },
